@@ -6,35 +6,56 @@
       <div id="infoKey" class="infoKey" v-if="!isEditingLocal">
         {{ infoKey }}
       </div>
-      <input type="text" :value="infoKey" v-if="isEditingLocal" />
+      <input
+        class="editInput"
+        type="text"
+        v-model="newKey"
+        v-if="isEditingLocal"
+        :placeholder="infoKey"
+      />
       <div class="infoValue" v-if="!isEditingLocal">
-        {{
-          this.$store.state.contacts.contacts[this.$route.params.id].value0[
-            index
-          ]
-        }}
+        {{ infoValue }}
       </div>
-      <input type="text" value="value" v-if="isEditingLocal" />
+      <input
+        class="editInput"
+        type="text"
+        v-if="isEditingLocal"
+        :placeholder="infoValue"
+        v-model="newValue"
+      />
       <button
         id="editButton"
+        class="buttonTmplt editButton"
         value="Edit"
         v-if="!isEditingLocal"
         v-on:click="setEditing()"
-      />
+      >
+        &#9998;
+      </button>
       <button
         id="removeButton"
         v-if="!isEditingLocal"
-        class="rm"
+        class="buttonTmplt removeBtn"
         v-on:click="$emit('remove-item', index)"
       >
         &times;
       </button>
       <button
         id="saveInfo"
+        class="buttonTmplt editButton"
         v-if="isEditingLocal"
         v-on:click="saveInfo()"
-      ></button>
-      <button id="cancel" v-if="isEditingLocal" v-on:click="cancel()"></button>
+      >
+        &#10003;
+      </button>
+      <button
+        id="cancel"
+        class="buttonTmplt removeBtn"
+        v-if="isEditingLocal"
+        v-on:click="cancel()"
+      >
+        &times;
+      </button>
     </div>
   </li>
 </template>
@@ -44,6 +65,10 @@ export default {
   data() {
     return {
       isEditingLocal: this.isEditing,
+      newValue: "",
+      newKey: "",
+      infoValue: this.$store.state.contacts.contacts[this.$route.params.id]
+        .value0[this.index],
     };
   },
   props: {
@@ -61,8 +86,20 @@ export default {
     saveInfo() {
       //TODO
       // save previous (current) values in store
+
+      this.infoValue = this.newValue;
+      this.infoKey = this.newKey;
       // update store
-      // this.isEditingLocal = false
+
+      if (this.newValue.trim() && this.newKey.trim()) {
+        this.$store.state.contacts.contacts[this.$route.params.id].key0[
+          this.index
+        ] = this.infoKey;
+        this.$store.state.contacts.contacts[this.$route.params.id].value0[
+          this.index
+        ] = this.infoValue;
+        this.isEditingLocal = false;
+      }
     },
   },
 };
@@ -79,24 +116,35 @@ li {
   padding: 10px 0px;
   margin-bottom: 1rem;
 }
-.rm {
+.buttonTmplt {
   width: 30px;
   height: 30px;
   margin: 5px;
-  background: rgb(253, 184, 184);
   color: #fff;
   border-radius: 50%;
   font-weight: bold;
   border: none;
 }
-/* .dt {
-  background-color: rgb(143, 229, 203);
-  color: #fff;
-  border-radius: 50%;
-  font-weight: bold;
-  margin-right: 10px;
-  border: none;
-} */
+.removeBtn {
+  background: rgb(253, 184, 184);
+  font-size: 16px;
+}
+
+.editButton {
+  background: rgb(143, 229, 203);
+  color: white;
+  font-size: 16px;
+}
+.editInput {
+  margin-bottom: 0px;
+  width: 40%;
+  margin-left: 10px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-bottom: 10px;
+}
+
 .infoCont {
   display: flex;
   flex-direction: row;
@@ -129,7 +177,7 @@ li {
   .infoCont {
     flex-direction: column;
   }
-  .rm {
+  .buttonTmpltm {
     width: auto;
     height: 25px;
     margin-top: 10px;
