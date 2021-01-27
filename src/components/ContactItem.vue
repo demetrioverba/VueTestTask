@@ -42,15 +42,16 @@ li {
   /* margin-bottom: 1rem; */
 }
 .rm {
+  width: 30px;
+  height: 30px;
   background: rgb(253, 184, 184);
   color: #fff;
   border-radius: 50%;
   font-weight: bold;
   border: none;
+  margin-top: 5px;
 }
 .dt {
-  width: 30px;
-  height: 30px;
   background-color: rgb(143, 229, 203);
   color: #fff;
   border-radius: 50%;

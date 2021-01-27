@@ -61,6 +61,9 @@ export default {
           id,
           1
         );
+        this.$store.state.contacts.contacts[
+          this.$route.params.id
+        ].value0.splice(id, 1);
       }
 
       // this.$store.state.contacts.contacts.map(function (c, i) {

@@ -4,6 +4,7 @@
       <RenderItem
         v-for="(infoKey, i) of infoKeys"
         v-bind:infoKey="infoKey"
+        v-bind:infoValue="infoValue[i]"
         v-bind:index="i"
         v-bind:key="i"
         v-on:remove-item="removeItem"
@@ -26,9 +27,9 @@ export default {
     infoKeys() {
       return this.$store.state.contacts.contacts[this.$route.params.id].key0;
     },
-    // infoValue() {
-    //   return this.$store.state.contacts.contacts[this.$route.params.id].value0;
-    // },
+    infoValue() {
+      return this.$store.state.contacts.contacts[this.$route.params.id].value0;
+    },
   },
 
   components: {
@@ -38,9 +39,9 @@ export default {
     removeItem(id) {
       this.$emit("remove-info", id);
     },
-    showInfo(title) {
-      this.$emit("show-info", title);
-    },
+    // showInfo(title) {
+    //   this.$emit("show-info", title);
+    // },
   },
   mounted() {
     console.log("reper");

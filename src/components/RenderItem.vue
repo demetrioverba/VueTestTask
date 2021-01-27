@@ -1,7 +1,5 @@
 <template>
   <li>
-    <!-- {{ contact.id }} -->
-    <!-- <strong>{{ index + 1 }}</strong> -->
     <div id="container" class="infoCont">
       <div id="infoKey" class="infoKey" v-if="!isEditingLocal">
         {{ infoKey }}
@@ -24,6 +22,14 @@
         v-model="newValue"
       />
       <button
+        id="backButton"
+        v-if="!isEditingLocal"
+        class="buttonTmplt backButton"
+        v-on:click="backValue()"
+      >
+        &#8617;
+      </button>
+      <button
         id="editButton"
         class="buttonTmplt editButton"
         value="Edit"
@@ -42,7 +48,7 @@
       </button>
       <button
         id="saveInfo"
-        class="buttonTmplt editButton"
+        class="buttonTmplt saveButton"
         v-if="isEditingLocal"
         v-on:click="saveInfo()"
       >
@@ -50,11 +56,11 @@
       </button>
       <button
         id="cancel"
-        class="buttonTmplt removeBtn"
+        class="buttonTmplt cancelButton"
         v-if="isEditingLocal"
         v-on:click="cancel()"
       >
-        &times;
+        &gt;
       </button>
     </div>
   </li>
@@ -67,12 +73,15 @@ export default {
       isEditingLocal: this.isEditing,
       newValue: "",
       newKey: "",
-      infoValue: this.$store.state.contacts.contacts[this.$route.params.id]
-        .value0[this.index],
+      oldValue: "",
+      oldKey: "",
+      // infoValue: this.$store.state.contacts.contacts[this.$route.params.id]
+      //   .value0[this.index],
     };
   },
   props: {
     infoKey: {},
+    infoValue: {},
     index: {},
     isEditing: false,
   },
@@ -83,23 +92,46 @@ export default {
     cancel() {
       this.isEditingLocal = false;
     },
+    // update store
+    updateStore() {
+      this.$store.state.contacts.contacts[this.$route.params.id].key0[
+        this.index
+      ] = this.infoKey;
+      this.$store.state.contacts.contacts[this.$route.params.id].value0[
+        this.index
+      ] = this.infoValue;
+      this.isEditingLocal = false;
+      console.log(this.infoKey, this.infoValue, "EDITED");
+      this.newKey = "";
+      this.newValue = "";
+    },
+
     saveInfo() {
-      //TODO
-      // save previous (current) values in store
-
-      this.infoValue = this.newValue;
-      this.infoKey = this.newKey;
-      // update store
-
-      if (this.newValue.trim() && this.newKey.trim()) {
-        this.$store.state.contacts.contacts[this.$route.params.id].key0[
-          this.index
-        ] = this.infoKey;
-        this.$store.state.contacts.contacts[this.$route.params.id].value0[
-          this.index
-        ] = this.infoValue;
-        this.isEditingLocal = false;
+      // save previous and current values
+      if (this.newValue.trim()) {
+        this.oldValue = this.infoValue;
+        this.infoValue = this.newValue;
       }
+      if (this.newKey.trim()) {
+        this.oldKey = this.infoKey;
+        this.infoKey = this.newKey;
+        console.log("da");
+      }
+      // update store
+      this.updateStore();
+    },
+    backValue() {
+      console.log(this.oldKey, this.oldValue, "OLD INFO");
+      if (this.oldKey) {
+        this.infoKey = this.oldKey;
+      }
+      if (this.oldValue) {
+        this.infoValue = this.oldValue;
+      }
+      console.log(this.newKey, this.newValue, "NEW INFO");
+      this.updateStore();
+      console.log("HAHAHAHAHAH");
+      document.getElementById("myText").placeholder = "Type name here..";
     },
   },
 };
@@ -108,32 +140,45 @@ export default {
 <style >
 li {
   border: none;
-  /* border-radius: 10px; */
   border-bottom: 1px solid #ccc;
-  /* box-shadow: 2px 3px 7px grey; */
-  /* display: flex;
-  justify-content: space-between; */
   padding: 10px 0px;
   margin-bottom: 1rem;
 }
+
 .buttonTmplt {
-  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
   height: 30px;
-  margin: 5px;
+  font-size: 15px;
+  padding: 0px;
   color: #fff;
   border-radius: 50%;
-  font-weight: bold;
+  margin-left: 7px;
   border: none;
 }
 .removeBtn {
   background: rgb(253, 184, 184);
-  font-size: 16px;
+  font-weight: bold;
+  margin-left: 40px;
 }
-
 .editButton {
+  background: rgb(172, 204, 142);
+  color: black;
+}
+.backButton {
   background: rgb(143, 229, 203);
-  color: white;
-  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+.cancelButton {
+  background: rgb(253, 184, 184);
+  color: black;
+  font-weight: bold;
+}
+.saveButton {
+  background: rgb(172, 204, 142);
+  color: black;
+  font-weight: bold;
 }
 .editInput {
   margin-bottom: 0px;
@@ -149,14 +194,10 @@ li {
   display: flex;
   flex-direction: row;
   text-align: center;
-  /* width: 100%; */
 }
 .infoKey {
-  /* width: 200px;
-  min-width: 100px; */
   flex: 40%;
   background-color: rgb(143, 229, 203);
-  /* font-weight: bold; */
   padding: 5px;
   align-items: center;
   text-align: center;
@@ -166,8 +207,6 @@ li {
 }
 .infoValue {
   flex: 60%;
-  /* display: block; */
-  /* height: auto; */
   padding: 5px;
   text-align: center;
   text-decoration: underline;
@@ -193,9 +232,4 @@ li {
     margin-top: 10px;
   }
 }
-/* p {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 200px;
-} */
 </style>
