@@ -5,9 +5,6 @@
       :to="{ name: 'contactPage', params: { id: contact.id } }"
       >{{ contact.title }}</router-link
     >
-    <!-- {{ contact.id }} -->
-    <!-- <strong>{{ index + 1 }}</strong> -->
-
     <button class="rm" v-on:click="$emit('remove-contact', contact.id)">
       &times;
     </button>
@@ -33,13 +30,10 @@ span {
 li {
   border: none;
   border-radius: 10px;
-  /* border-bottom: 1px solid #ccc; */
   box-shadow: 2px 3px 7px grey;
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-
-  /* margin-bottom: 1rem; */
 }
 .rm {
   width: 30px;
@@ -50,14 +44,6 @@ li {
   font-weight: bold;
   border: none;
   margin-top: 5px;
-}
-.dt {
-  background-color: rgb(143, 229, 203);
-  color: #fff;
-  border-radius: 50%;
-  font-weight: bold;
-  margin-right: 10px;
-  border: none;
 }
 .contLink {
   margin-top: 10px;

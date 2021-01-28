@@ -9,7 +9,7 @@
         type="text"
         v-model="newKey"
         v-if="isEditingLocal"
-        :placeholder="infoKey"
+        :placeholder="infoKeyLocal"
       />
       <div class="infoValue" v-if="!isEditingLocal">
         {{ infoValue }}
@@ -18,7 +18,7 @@
         class="editInput"
         type="text"
         v-if="isEditingLocal"
-        :placeholder="infoValue"
+        :placeholder="infoValueLocal"
         v-model="newValue"
       />
       <button
@@ -75,8 +75,8 @@ export default {
       newKey: "",
       oldValue: "",
       oldKey: "",
-      // infoValue: this.$store.state.contacts.contacts[this.$route.params.id]
-      //   .value0[this.index],
+      infoKeyLocal: this.infoKey,
+      infoValueLocal: this.infoValue,
     };
   },
   props: {
@@ -90,18 +90,25 @@ export default {
       this.isEditingLocal = true;
     },
     cancel() {
-      this.isEditingLocal = false;
+      if (window.confirm("Выйти из меню редактирования?")) {
+        this.isEditingLocal = false;
+      }
     },
     // update store
     updateStore() {
-      this.$store.state.contacts.contacts[this.$route.params.id].key0[
-        this.index
-      ] = this.infoKey;
-      this.$store.state.contacts.contacts[this.$route.params.id].value0[
-        this.index
-      ] = this.infoValue;
+      this.$set(
+        this.$store.state.contacts.contacts[this.$route.params.id].key0,
+        this.index,
+        this.infoKeyLocal
+      );
+      this.$set(
+        this.$store.state.contacts.contacts[this.$route.params.id].value0,
+        this.index,
+        this.infoValueLocal
+      );
+
       this.isEditingLocal = false;
-      console.log(this.infoKey, this.infoValue, "EDITED");
+      console.log(this.infoKeyLocal, this.infoValueLocal, "EDITED");
       this.newKey = "";
       this.newValue = "";
     },
@@ -109,29 +116,25 @@ export default {
     saveInfo() {
       // save previous and current values
       if (this.newValue.trim()) {
-        this.oldValue = this.infoValue;
-        this.infoValue = this.newValue;
+        this.oldValue = this.infoValueLocal;
+        this.infoValueLocal = this.newValue;
       }
       if (this.newKey.trim()) {
-        this.oldKey = this.infoKey;
-        this.infoKey = this.newKey;
+        this.oldKey = this.infoKeyLocal;
+        this.infoKeyLocal = this.newKey;
         console.log("da");
       }
       // update store
       this.updateStore();
     },
     backValue() {
-      console.log(this.oldKey, this.oldValue, "OLD INFO");
       if (this.oldKey) {
-        this.infoKey = this.oldKey;
+        this.infoKeyLocal = this.oldKey;
       }
       if (this.oldValue) {
-        this.infoValue = this.oldValue;
+        this.infoValueLocal = this.oldValue;
       }
-      console.log(this.newKey, this.newValue, "NEW INFO");
       this.updateStore();
-      console.log("HAHAHAHAHAH");
-      document.getElementById("myText").placeholder = "Type name here..";
     },
   },
 };

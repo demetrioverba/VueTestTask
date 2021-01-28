@@ -10,7 +10,6 @@
         v-on:remove-item="removeItem"
       />
     </ul>
-    <!-- {{ proba }} -->
   </div>
 </template>
 
@@ -18,11 +17,6 @@
 import RenderItem from "@/components/RenderItem";
 
 export default {
-  // data() {
-  //   return {
-  //     contacts: this.$store.state.contacts,
-  //   };
-  // },
   computed: {
     infoKeys() {
       return this.$store.state.contacts.contacts[this.$route.params.id].key0;
@@ -31,7 +25,6 @@ export default {
       return this.$store.state.contacts.contacts[this.$route.params.id].value0;
     },
   },
-
   components: {
     RenderItem,
   },
@@ -39,9 +32,6 @@ export default {
     removeItem(id) {
       this.$emit("remove-info", id);
     },
-    // showInfo(title) {
-    //   this.$emit("show-info", title);
-    // },
   },
   mounted() {
     console.log("reper");

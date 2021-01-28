@@ -9,7 +9,6 @@
         v-bind:key="i"
       />
     </ul>
-    <!-- {{ proba }} -->
   </div>
 </template>
 
@@ -17,11 +16,6 @@
 import ContactItem from "@/components/ContactItem";
 
 export default {
-  // data() {
-  //   return {
-  //     contacts: this.$store.state.contacts,
-  //   };
-  // },
   computed: {
     proba() {
       return this.$store.state.contacts.contacts;
@@ -34,9 +28,6 @@ export default {
     removeContact(id) {
       this.$emit("remove-contact", id);
     },
-    // showInfo(title) {
-    //   this.$emit("show-info", title);
-    // },
   },
 };
 </script>

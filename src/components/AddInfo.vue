@@ -19,14 +19,7 @@ export default {
       if (this.title.trim && this.val0.trim()) {
         let newInfo = [];
         newInfo = [this.title, this.val0];
-        //let newVal0 = this.val0;
-        // this.$store.state.contacts.contacts[
-        //   this.$route.params.id
-        // ].keeey = newInfo;
-
-        // newInfo.push(this.title);
         this.$emit("add-info", newInfo);
-        //this.$emit("add-infoVal0", newVal0);
         this.title = "";
         this.val0 = "";
       }
