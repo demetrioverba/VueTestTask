@@ -12,7 +12,7 @@
       <h4>Добавить информацию</h4>
       <AddInfo @add-info="addInfo" @add-infoVal0="addInfo" />
     </div>
-    <router-link to="/">Все контакты</router-link>
+    <router-link class="listPage" to="/">контакты</router-link>
   </div>
 </template>
 
@@ -58,5 +58,14 @@ h4 {
   padding-top: 10px;
   padding-bottom: 10px;
   margin: 0px;
+}
+.listPage {
+  text-decoration: none;
+  background-color: rgb(121, 119, 119);
+  padding: 4px;
+  color: white;
+  margin: 0px auto;
+  border-radius: 5px;
+  text-transform: uppercase;
 }
 </style>

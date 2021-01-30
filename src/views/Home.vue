@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h4>Список контактов</h4>
+    <h5>Список контактов</h5>
     <hr />
     <div class="newCont">
-      <h4>Add new Contact</h4>
+      <h4>Добавить контакт</h4>
       <AddContact @add-contact="addContact" />
     </div>
     <ContactList @remove-contact="removeContact" />

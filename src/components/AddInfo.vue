@@ -70,7 +70,8 @@ button {
     width: 90%;
   }
   button {
-    min-width: 70px;
+    width: 91%;
+    margin-right: 0px;
     padding: 0px;
     margin-bottom: 0px;
   }

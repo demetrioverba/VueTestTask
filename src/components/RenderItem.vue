@@ -156,8 +156,7 @@ export default {
 <style >
 li {
   border: none;
-
-  margin-bottom: 1rem;
+  margin-bottom: 30px;
 }
 
 .buttonTmplt {
@@ -182,18 +181,20 @@ li {
   color: rgb(121, 119, 119);
 }
 .backButton {
-  background: rgb(143, 229, 203);
+  background: white;
+  border: 2px solid rgb(121, 119, 119);
   font-weight: bold;
-  color: black;
+  color: rgb(121, 119, 119);
 }
 .cancelButton {
-  background: rgb(253, 184, 184);
-  color: black;
+  background: rgb(121, 119, 119);
+  color: white;
   font-weight: bold;
 }
 .saveButton {
-  background: rgb(172, 204, 142);
-  color: black;
+  background: white;
+  color: rgb(121, 119, 119);
+  border: 2px solid rgb(121, 119, 119);
   font-weight: bold;
 }
 .buttonTmplt:focus {
@@ -230,18 +231,16 @@ li {
 .infoValue {
   flex: 60%;
   padding: 5px;
-  /* text-align: justify; */
   text-decoration: underline;
   font-size: 15px;
 }
 @media (max-width: 380px) {
   .infoCont {
-    background: rgb(224, 222, 222);
+    margin: 20px 10px;
+    background: white;
     flex-direction: column;
-    /* border: 1px solid grey; */
     border-radius: 10px 10px 5px 5px;
-    padding: 5px;
-    padding-bottom: 5px;
+    padding: 0px;
     border-bottom: none;
     box-shadow: 2px 3px 7px grey;
   }
@@ -251,37 +250,49 @@ li {
     max-width: 100%;
     border-radius: 5px;
     margin: 0px;
-    /* margin-top: 25px; */
   }
   .editButton {
-    margin: 10px 0px;
+    margin: 10px 10px;
     background: white;
+  }
+  .removeBtn {
+    border-radius: 0px 0px 5px 5px;
+  }
+  .saveButton {
+    margin: 0px 10px;
+    margin-top: 20px;
+  }
+  .cancelButton {
+    border-radius: 0px 0px 5px 5px;
+    margin-top: 10px;
+  }
+  .backButton {
+    margin: 0px 10px;
   }
   .infoKey {
     background: rgb(155, 189, 150);
+    border-radius: 10px 10px 0px 0px;
     color: white;
-    border: 2px solid white;
   }
   .infoValue {
     flex: none;
     min-height: 80px;
     height: auto;
     padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0px;
     text-align: center;
     border-radius: 10px;
-    /* border: 1px solid grey; */
     background: rgb(255, 255, 255);
     text-decoration: none;
   }
   .editInput {
     width: 90%;
     height: 100px;
+    margin: 0px auto;
     margin-top: 20px;
   }
   .editInput::placeholder {
-    color: blue;
+    color: rgb(187, 185, 185);
     padding: 10px;
     text-align: center;
   }
