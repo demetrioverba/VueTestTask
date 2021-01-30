@@ -33,9 +33,6 @@ export default {
       this.$emit("remove-info", id);
     },
   },
-  mounted() {
-    console.log("reper");
-  },
 };
 </script>
 

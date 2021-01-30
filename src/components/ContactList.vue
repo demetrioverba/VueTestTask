@@ -2,8 +2,8 @@
   <div>
     <ul>
       <ContactItem
-        v-for="(prob, i) of proba"
-        v-bind:contact="prob"
+        v-for="(contact, i) of contacts"
+        v-bind:contact="contact"
         v-bind:index="i"
         v-on:remove-contact="removeContact"
         v-bind:key="i"
@@ -17,7 +17,7 @@ import ContactItem from "@/components/ContactItem";
 
 export default {
   computed: {
-    proba() {
+    contacts() {
       return this.$store.state.contacts.contacts;
     },
   },

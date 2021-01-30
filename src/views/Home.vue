@@ -6,9 +6,7 @@
       <h4>Add new Contact</h4>
       <AddContact @add-contact="addContact" />
     </div>
-    <hr />
     <ContactList @remove-contact="removeContact" />
-    <br /><br />
   </div>
 </template>
 
